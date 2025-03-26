@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "jobspy-mcp-server"
+version = "0.1.0"
+description = "A server for scraping and matching jobs based on JobSpy"
+authors = ["Lilly <lg1527058@gmail.com>"]
+readme = "README.md"
+packages = [{include = "src"}]  # Include the entire src directory
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0"
+fastmcp = ">=0.4.1"
+python-jobspy = ">=1.1.79"
+linkedin-api = ">=2.3.1"
+python-dotenv = ">=1.0.1"
+requests = ">=2.32.3"
+uvicorn = ">=0.34.0"
+nest_asyncio = ">=1.5.8"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
+Homepage = "https://github.com/happyhackerbird/jobspy-mcp-server"
