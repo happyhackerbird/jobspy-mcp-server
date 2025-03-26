@@ -5,6 +5,7 @@ description = "A server for scraping and matching jobs based on JobSpy"
 authors = ["Lilly <lg1527058@gmail.com>"]
 readme = "README.md"
 packages = [{include = "src"}]  # Include the entire src directory
+keywords = ["mcp", "linkedin", "job scraping"]
 
 [tool.poetry.dependencies]
 python = ">=3.12,<4.0"

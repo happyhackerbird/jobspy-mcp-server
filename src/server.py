@@ -6,6 +6,7 @@ import logging
 
 # Initialize MCP server
 mcp = FastMCP("linkedin-jobspy")
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def serialize_job(job):
