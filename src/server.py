@@ -73,23 +73,14 @@ def search_jobs(
     results_wanted: int = 15,
     fetch_description: bool = False,
     description_format: str = "markdown",
+    google_search_term: str = None,
+    hours_old: int = None,
+    country_indeed: str = None,
     proxies: str = None,
     ca_cert: str = None,
 ):
     """
     Search for jobs on LinkedIn with the given criteria.
-    
-    :param search_term: The job search term.
-    :param location: The location to search in.
-    :param distance: The distance in kilometers.
-    :param is_remote: Whether to look for remote jobs only.
-    :param job_type: Type of job (e.g., FULL_TIME, PART_TIME).
-    :param results_wanted: Number of results to return.
-    :param fetch_description: Whether to fetch detailed job descriptions.
-    :param description_format: Format for job descriptions (e.g., markdown, html).
-    :param proxies: Optional proxies to use (comma-separated if multiple).
-    :param ca_cert: Optional CA certificate.
-    :return: List of job posts.
     """
     try:
         # Handle proxies
@@ -113,7 +104,10 @@ def search_jobs(
             job_type=job_type_enum,
             results_wanted=results_wanted,
             linkedin_fetch_description=fetch_description,
-            description_format=DescriptionFormat.MARKDOWN if description_format.lower() == "markdown" else DescriptionFormat.HTML
+            description_format=DescriptionFormat.MARKDOWN if description_format.lower() == "markdown" else DescriptionFormat.HTML,
+            google_search_term=google_search_term,
+            hours_old=hours_old,
+            country_indeed=country_indeed
         )
         
         # Scrape jobs
@@ -131,12 +125,6 @@ def search_jobs(
 def get_job_details(job_id: str, description_format: str = "markdown", proxies: str = None, ca_cert: str = None):
     """
     Get detailed information about a specific LinkedIn job.
-    
-    :param job_id: The LinkedIn job ID.
-    :param description_format: Format for job descriptions (e.g., markdown, html).
-    :param proxies: Optional proxies to use (comma-separated if multiple).
-    :param ca_cert: Optional CA certificate.
-    :return: Detailed job information.
     """
     try:
         # Handle proxies
@@ -162,4 +150,22 @@ def get_job_details(job_id: str, description_format: str = "markdown", proxies: 
         return {"error": str(e)}
 
 if __name__ == "__main__":
-    mcp.run(transport='stdio')
+    import argparse
+    import sys
+    
+    # Set up command-line argument parsing
+    parser = argparse.ArgumentParser(description='Run LinkedIn MCP Server')
+    parser.add_argument('--transport', default='stdio', help='Transport to use (stdio, sse, etc.)')
+    parser.add_argument('--port', type=int, default=8080, help='Port to use for network transports')
+    
+    # Parse arguments
+    args = parser.parse_args()
+    
+    # Run the server with the specified transport and port
+    logger.info(f"Starting server with transport={args.transport}, port={args.port}")
+    
+    # Only pass port parameter when not using stdio
+    if args.transport == 'stdio':
+        mcp.run(transport=args.transport)
+    else:
+        mcp.run(transport=args.transport, port=args.port)

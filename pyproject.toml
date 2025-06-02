@@ -9,7 +9,7 @@ keywords = ["mcp", "linkedin", "job scraping"]
 
 [tool.poetry.dependencies]
 python = ">=3.12,<4.0"
-fastmcp = ">=0.4.1"
+fastmcp = ">=2.1.0"
 python-jobspy = ">=1.1.79"
 linkedin-api = ">=2.3.1"
 python-dotenv = ">=1.0.1"
